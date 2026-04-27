@@ -1,17 +1,46 @@
 package com.pluralsight;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        Scanner scanner = new Scanner(System.in);
+        ArrayList<Transaction> init = initialize();
+        System.out.println(init.get(0).getVendor());
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
-        }
     }
+
+    public void mainMenu(){
+
+    }
+
+    public void ledgerMenu(){
+
+    }
+
+    public static ArrayList<Transaction> initialize() {
+        ArrayList<Transaction> ledger;
+        try {
+            ledger = new ArrayList<>();
+            BufferedReader bufferedReader = new BufferedReader(new FileReader("./transactions.csv"));
+            bufferedReader.readLine();
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                String[] arr = line.split("\\|");
+                ledger.add(new Transaction(LocalDate.parse(arr[0]), LocalTime.parse(arr[1]), arr[2], arr[3], Double.parseDouble(arr[4])));
+            }
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return ledger;
+    }
+
 }
