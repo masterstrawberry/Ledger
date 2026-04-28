@@ -57,4 +57,5 @@ public class Transaction {
     public void setAmount(Double amount) {
         this.amount = amount;
     }
+
 }
