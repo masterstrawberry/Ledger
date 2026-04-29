@@ -7,6 +7,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import static com.pluralsight.Ledger.ledgerMenu;
 
 
 public class Main {
@@ -14,14 +15,12 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         ArrayList<Transaction> arr = initialize();
         mainMenu(scanner, arr);
-//        System.out.println(init.get(0).getVendor());
 
     }
 
     public static void mainMenu(Scanner scanner, ArrayList<Transaction> arr){
         while (true){
             System.out.println("""
-                    
                     Menu below:
                     D) Add Deposit\s
                     P) Make Payment (Debit)
@@ -37,7 +36,7 @@ public class Main {
                     makePayment(scanner,arr);
                     break;
                 case "l":
-//                    ledgerMenu(scanner);
+                    ledgerMenu(scanner, arr);
                     break;
                 default:
                     return;
@@ -60,7 +59,10 @@ public class Main {
             LocalTime time = LocalTime.now().truncatedTo(ChronoUnit.SECONDS);
             arr.add(new Transaction(date, time, desc, vendor, deposit));
             bufferedWriter.write(date+"|"+time+"|"+desc+"|"+vendor+"|"+deposit);
+            bufferedWriter.newLine();
             bufferedWriter.close();
+            System.out.println("Successful Deposit!\n\n");
+
 
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -82,7 +84,9 @@ public class Main {
             LocalTime time = LocalTime.now().truncatedTo(ChronoUnit.SECONDS);
             arr.add(new Transaction(date, time, desc, vendor, deposit));
             bufferedWriter.write(date+"|"+time+"|"+desc+"|"+vendor+"|"+deposit);
+            bufferedWriter.newLine();
             bufferedWriter.close();
+            System.out.println("Successful Payment!\n\n");
 
         } catch (IOException e) {
             throw new RuntimeException(e);

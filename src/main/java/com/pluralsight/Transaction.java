@@ -58,4 +58,9 @@ public class Transaction {
         this.amount = amount;
     }
 
+    public String toString(){
+        return this.getDate()+"|"+this.getTime()+"|"+this.getDescription()+"|"+this.getVendor()+"|"+this.getAmount();
+    }
+
+
 }
