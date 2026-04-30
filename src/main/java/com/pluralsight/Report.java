@@ -15,6 +15,7 @@ public class Report {
              3) Year To Date
              4) Previous Year
              5) Search by Vendor
+             6) Custom Search
              0) Back to Ledger
              """);
             String response = scanner.nextLine();
@@ -111,16 +112,48 @@ public class Report {
         }
     }
 
-    public static void customSearch(Scanner scanner,ArrayList<Transaction> arr){
-        System.out.println("Enter vendor: ");
-        String vendor = scanner.next().toLowerCase();
+    public static void customSearch(Scanner scanner, ArrayList<Transaction> arr) {
         scanner.nextLine();
+
+        System.out.println("Enter start date (yyyy-mm-dd) or leave blank: ");
+        String startDateInput = scanner.nextLine().trim();
+        System.out.println("Enter end date (yyyy-mm-dd) or leave blank: ");
+        String endDateInput = scanner.nextLine().trim();
+        System.out.println("Enter description or leave blank: ");
+        String description = scanner.nextLine().trim();
+        System.out.println("Enter vendor or leave blank: ");
+        String vendor = scanner.nextLine().trim();
+        System.out.println("Enter amount or leave blank: ");
+        String amountInput = scanner.nextLine().trim();
+
+        System.out.println("\n--- Search Results ---");
         for (Transaction transaction : arr) {
-            if (transaction.getVendor().equalsIgnoreCase(vendor)) {
-                System.out.println(transaction.toString());
+            if (!startDateInput.isEmpty()) {
+                LocalDate start = LocalDate.parse(startDateInput);
+                if (transaction.getDate().isBefore(start)) continue;
             }
+
+            if (!endDateInput.isEmpty()) {
+                LocalDate end = LocalDate.parse(endDateInput);
+                if (transaction.getDate().isAfter(end)) continue;
+            }
+
+            if (!description.isEmpty()) {
+                if (!transaction.getDescription().toLowerCase().contains(description.toLowerCase())) continue;
+            }
+
+            if (!vendor.isEmpty()) {
+                if (!transaction.getVendor().toLowerCase().contains(vendor.toLowerCase())) continue;
+            }
+
+            if (!amountInput.isEmpty()) {
+                double amount = Double.parseDouble(amountInput);
+                if (transaction.getAmount() != amount) continue;
+            }
+            System.out.println(transaction);
         }
-//        6) Custom Search - prompt the user for the following search values.
+    }
+    //        6) Custom Search - prompt the user for the following search values.
 //        ▪ Start Date
 //        ▪ End Date
 //        ▪ Description
@@ -130,6 +163,4 @@ public class Report {
 //        o If the user does not enter a value, you should not filter on that field
 //
 
-
-    }
 }
