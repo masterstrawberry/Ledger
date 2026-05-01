@@ -53,6 +53,8 @@ public class Report {
         for (Transaction transaction: filtered) {
             System.out.println(transaction.toString());
         }
+        System.out.println("-----------------------------------------------------------------------------");
+
     }
 
     public static void previousMonth(ArrayList<Transaction> arr) {
@@ -67,6 +69,8 @@ public class Report {
         for (Transaction transaction: filtered) {
             System.out.println(transaction.toString());
         }
+        System.out.println("-----------------------------------------------------------------------------");
+
     }
 
     public static void yearToDate(ArrayList<Transaction> arr) {
@@ -83,6 +87,8 @@ public class Report {
         for (Transaction transaction: filtered) {
             System.out.println(transaction.toString());
         }
+        System.out.println("-----------------------------------------------------------------------------");
+
     }
 
     public static void previousYear(ArrayList<Transaction> arr) {
@@ -99,6 +105,7 @@ public class Report {
         for (Transaction transaction: filtered) {
             System.out.println(transaction.toString());
         }
+        System.out.println("-----------------------------------------------------------------------------");
     }
 
     public static void byVendor(Scanner scanner,ArrayList<Transaction> arr){
@@ -113,7 +120,6 @@ public class Report {
     }
 
     public static void customSearch(Scanner scanner, ArrayList<Transaction> arr) {
-        scanner.nextLine();
 
         System.out.println("Enter start date (yyyy-mm-dd) or leave blank: ");
         String startDateInput = scanner.nextLine().trim();
@@ -152,15 +158,8 @@ public class Report {
             }
             System.out.println(transaction);
         }
+        System.out.println("-----------------------------------------------------------------------------");
+
     }
-    //        6) Custom Search - prompt the user for the following search values.
-//        ▪ Start Date
-//        ▪ End Date
-//        ▪ Description
-//        ▪ Vendor
-//        ▪ Amount
-//        o If the user enters a value for a field you should filter on that field
-//        o If the user does not enter a value, you should not filter on that field
-//
 
 }
